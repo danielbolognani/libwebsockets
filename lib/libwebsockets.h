@@ -86,7 +86,7 @@ struct sockaddr_in;
 #define LWS_O_RDONLY _O_RDONLY
 
 #if !defined(__MINGW32__) && (!defined(_MSC_VER) || _MSC_VER < 1900) /* Visual Studio 2015 already defines this in <stdio.h> */
-#define lws_snprintf _snprintf
+//#define lws_snprintf _snprintf
 #endif
 
 #ifndef __func__
@@ -2817,6 +2817,12 @@ enum lws_token_indexes {
 	WSI_TOKEN_HTTP1_0					= 79,
 	WSI_TOKEN_X_FORWARDED_FOR				= 80,
 	WSI_TOKEN_CONNECT					= 81,
+	WSI_TOKEN_X_SERVER_NAME				= 82,
+	WSI_TOKEN_X_SERVER_BUILD			= 83,
+	WSI_TOKEN_X_FRAME_OPTION			= 84,
+	WSI_TOKEN_X_CONTENT_TYPE_OPTIONS	= 85,
+	WSI_TOKEN_X_XSS_PROTECTION			= 86,
+
 	/****** add new things just above ---^ ******/
 
 	/* use token storage to stash these internally, not for

@@ -96,6 +96,14 @@ STORE_IN_ROM static const char * const set[] = {
 
 	"x-forwarded-for",
 	"connect ",
+	
+	"x-server-name:",
+	"x-server-build:",
+	"x-server-version:",
+	"x-frame-options:",
+	"x-content-type-options:",
+	"x-xss-protection:",
+	
 
 	"", /* not matchable */
 
