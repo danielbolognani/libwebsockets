@@ -227,7 +227,7 @@ lws_ssl_remove_wsi_from_buffered_list(struct lws *wsi)
 	wsi->pending_read_list_prev = NULL;
 	wsi->pending_read_list_next = NULL;
 }
-
+#define N_RETRIES 5
 LWS_VISIBLE int
 lws_ssl_capable_read(struct lws *wsi, unsigned char *buf, int len)
 {
@@ -239,7 +239,14 @@ lws_ssl_capable_read(struct lws *wsi, unsigned char *buf, int len)
 	if (!wsi->ssl)
 		return lws_ssl_capable_read_no_ssl(wsi, buf, len);
 
-	n = SSL_read(wsi->ssl, buf, len);
+  // Totvs - Por algum motivo mesmo retornando -1 e se for CAPABLE_ERROR se eu tentar novamente funciona!
+  // Problema aconteceu durante sistemico nas aplicações Monitor e Debugger (ADVPLS e debugAdapter)
+  for (int i = 0; i < N_RETRIES; i++) {
+    n = SSL_read(wsi->ssl, buf, len);
+    if (n != -1)
+      break;
+    Sleep(2);
+  }
 
 	/* manpage: returning 0 means connection shut down */
 	if (!n) {

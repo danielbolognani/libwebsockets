@@ -892,7 +892,7 @@ if (LWS_WITH_SSL)
 		if (NOT OPENSSL_FOUND AND NOT LWS_USE_BORINGSSL)
 			# TODO: Add support for STATIC also.
 		if (NOT LWS_WITH_ESP32)
-			#find_package(OpenSSL REQUIRED)
+			find_package(OpenSSL REQUIRED)
 		endif()
 			set(OPENSSL_INCLUDE_DIRS "${OPENSSL_INCLUDE_DIR}")
 		endif()
