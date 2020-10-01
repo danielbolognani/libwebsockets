@@ -241,11 +241,16 @@ lws_ssl_capable_read(struct lws *wsi, unsigned char *buf, int len)
 
   // Totvs - Por algum motivo mesmo retornando -1 e se for CAPABLE_ERROR se eu tentar novamente funciona!
   // Problema aconteceu durante sistemico nas aplicações Monitor e Debugger (ADVPLS e debugAdapter)
-  for (int i = 0; i < N_RETRIES; i++) {
+  int il = 0;
+  for (il = 0; il < N_RETRIES; il++) {
     n = SSL_read(wsi->ssl, buf, len);
     if (n != -1)
       break;
+#ifdef _WIN32
     Sleep(2);
+#else
+    sleep(2);
+#endif
   }
 
 	/* manpage: returning 0 means connection shut down */
