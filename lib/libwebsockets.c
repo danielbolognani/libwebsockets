@@ -660,6 +660,18 @@ async_close:
 	lws_close_free_wsi_final(wsi);
 }
 
+LWS_VISIBLE LWS_EXTERN void *
+lws_getsslsession(struct lws* wsi)
+{
+  return (void*)lws_getSSLSession(wsi);
+}
+
+LWS_VISIBLE LWS_EXTERN int
+lws_print_session(FILE *fp, struct lws *wsi)
+{
+  return lws_sslSessionPrint(fp, wsi);
+}
+
 void
 lws_close_free_wsi_final(struct lws *wsi)
 {

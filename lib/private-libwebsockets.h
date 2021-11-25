@@ -1812,6 +1812,10 @@ LWS_EXTERN int
 lws_ssl_client_connect2(struct lws *wsi);
 LWS_EXTERN void
 lws_ssl_elaborate_error(void);
+LWS_EXTERN SSL_SESSION *
+lws_getSSLSession(struct lws *wsi);
+LWS_EXTERN int
+lws_sslSessionPrint(FILE *fp, struct lws *wsi);
 #ifndef LWS_NO_SERVER
 LWS_EXTERN int
 lws_context_init_server_ssl(struct lws_context_creation_info *info,

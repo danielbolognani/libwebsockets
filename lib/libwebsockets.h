@@ -2899,6 +2899,15 @@ LWS_VISIBLE LWS_EXTERN int
 lws_hdr_copy(struct lws *wsi, char *dest, int len, enum lws_token_indexes h);
 
 /**
+ *  * lws_getsslsession() - return SSLOPTION for the current wsi
+ *   */
+LWS_VISIBLE LWS_EXTERN void*
+lws_getsslsession(struct lws* wsi);
+
+LWS_VISIBLE LWS_EXTERN int
+lws_print_session(FILE *fp, struct lws *wsi);
+
+/**
  * lws_hdr_copy_fragment() - copy a single fragment of the given header to a buffer
  *		The buffer length len must include space for an additional
  *		terminating '\0', or it will fail returning -1.

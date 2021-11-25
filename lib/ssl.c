@@ -34,6 +34,17 @@ int lws_ssl_get_error(struct lws *wsi, int n)
 	return SSL_get_error(wsi->ssl, n);
 }
 
+SSL_SESSION *lws_getSSLSession(struct lws *wsi)
+{
+  return SSL_get_session(wsi->ssl);
+}
+
+int lws_sslSessionPrint(FILE *fp, struct lws *wsi)
+{
+  SSL_SESSION * ses = lws_getSSLSession(wsi);
+  return SSL_SESSION_print_fp(fp, ses);
+}
+
 /* Copies a string describing the code returned by lws_ssl_get_error(),
  * which may also contain system error information in the case of SSL_ERROR_SYSCALL,
  * into buf up to len.
@@ -239,6 +250,7 @@ lws_ssl_capable_read(struct lws *wsi, unsigned char *buf, int len)
 	if (!wsi->ssl)
 		return lws_ssl_capable_read_no_ssl(wsi, buf, len);
 
+ 	//n = SSL_read(wsi->ssl, buf, len);
   // Totvs - Por algum motivo mesmo retornando -1 e se for CAPABLE_ERROR se eu tentar novamente funciona!
   // Problema aconteceu durante sistemico nas aplicações Monitor e Debugger (ADVPLS e debugAdapter)
   int il = 0;
@@ -246,11 +258,11 @@ lws_ssl_capable_read(struct lws *wsi, unsigned char *buf, int len)
     n = SSL_read(wsi->ssl, buf, len);
     if (n != -1)
       break;
-#ifdef _WIN32
+/*#ifdef _WIN32
     Sleep(2);
 #else
     sleep(2);
-#endif
+#endif*/
   }
 
 	/* manpage: returning 0 means connection shut down */
