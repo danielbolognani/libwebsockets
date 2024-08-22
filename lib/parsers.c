@@ -423,6 +423,21 @@ LWS_VISIBLE int lws_hdr_copy(struct lws *wsi, char *dst, int len,
 	return toklen;
 }
 
+LWS_VISIBLE size_t lws_hdr_rx_length(struct lws* wsi)
+{
+	if (wsi->u.hdr.ah->rx)
+		return sizeof(wsi->u.hdr.ah->rx);
+	else
+		return 0;
+}
+
+LWS_VISIBLE size_t lws_hdr_rx_copy(struct lws* wsi, unsigned char* dest, size_t len)
+{
+	int rxlen = lws_hdr_rx_length(wsi);
+	memcpy(dest, wsi->u.hdr.ah->rx, rxlen);
+	return rxlen;
+}
+
 char *lws_hdr_simple_ptr(struct lws *wsi, enum lws_token_indexes h)
 {
 	int n;

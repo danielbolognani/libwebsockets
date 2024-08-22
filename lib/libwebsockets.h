@@ -2908,6 +2908,28 @@ LWS_VISIBLE LWS_EXTERN int
 lws_print_session(FILE *fp, struct lws *wsi);
 
 /**
+ * lws_hdr_rx_length: report length of the raw rx content
+ *		The returned length does not include the space for a
+ *		terminating '\0'
+ *
+ * \param wsi: websocket connection
+ */
+LWS_VISIBLE LWS_EXTERN size_t
+lws_hdr_rx_length(struct lws* wsi);
+
+/**
+ * lws_hdr_rx_copy() - copy the whole raw rx content to a buffer
+ *		The buffer length len must include space for an additional
+ *		terminating '\0', or it will fail returning -1.
+ *
+ * \param wsi: websocket connection
+ * \param dest: destination buffer
+ * \param len: length of destination buffer
+ */
+LWS_VISIBLE LWS_EXTERN size_t
+lws_hdr_rx_copy(struct lws* wsi, unsigned char* dest, size_t len);
+
+/**
  * lws_hdr_copy_fragment() - copy a single fragment of the given header to a buffer
  *		The buffer length len must include space for an additional
  *		terminating '\0', or it will fail returning -1.
