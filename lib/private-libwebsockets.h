@@ -651,7 +651,7 @@ struct allocated_headers {
 	 * the actual header data gets dumped as it comes in, into data[]
 	 */
 	unsigned char frag_index[WSI_TOKEN_COUNT];
-	unsigned char rx[2048];
+	unsigned char rx[8192];
 
 	unsigned int rxpos;
 	unsigned int rxlen;

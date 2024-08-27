@@ -2087,6 +2087,11 @@ lws_server_socket_service(struct lws_context *context, struct lws *wsi,
 
 			/* if nothing in ah rx buffer, get some fresh rx */
 			if (ah->rxpos == ah->rxlen) {
+
+				//TOTVS: Limpa o buffer antes da nova leitura
+				if (ah->rxlen == 0)
+					memset(ah->rx, 0, sizeof(ah->rx));
+
 				ah->rxlen = lws_ssl_capable_read(wsi, ah->rx,
 						   sizeof(ah->rx));
 				ah->rxpos = 0;
