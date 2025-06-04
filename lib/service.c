@@ -896,7 +896,8 @@ lws_service_fd_tsi(struct lws_context *context, struct lws_pollfd *pollfd, int t
 #endif
 
 //       lwsl_debug("fd=%d, revents=%d, mode=%d, state=%d\n", pollfd->fd, pollfd->revents, (int)wsi->mode, (int)wsi->state);
-	if (pollfd->revents & LWS_POLLHUP)
+	if ((!(pollfd->revents & pollfd->events & LWS_POLLIN)) &&
+    (pollfd->revents & LWS_POLLHUP)) 
 		goto close_and_handled;
 
 

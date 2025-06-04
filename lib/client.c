@@ -250,7 +250,7 @@ client_http_body_sent:
 
 		/* handle server hung up on us */
 
-		if (pollfd->revents & LWS_POLLHUP) {
+		if ((pollfd->revents & (LWS_POLLIN | LWS_POLLHUP)) == LWS_POLLHUP) {
 
 			lwsl_debug("Server connection %p (fd=%d) dead\n",
 				(void *)wsi, pollfd->fd);
